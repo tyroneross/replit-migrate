@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if .replit-migrate/ directory exists in the current working directory. If it does:\n1. Read .replit-migrate/progress.json if it exists — report brief status (X/Y tasks done, next task)\n2. If only scan-report.json exists but no plan, mention: 'Migration scan exists but no plan generated yet. Use migrate_plan_web or migrate_plan_native to generate a plan.'\n3. Keep the reminder to ONE line.\n\nIf .replit-migrate/ does not exist, check for .replit file. If found, mention: 'This looks like a Replit project. Use migrate_scan to analyze it for migration.'\n\nIf neither exists, do nothing."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If .replit-migrate/ exists in the project and you're about to edit a file, check if this file appears in the migration plan's affected files. If so, add a brief reminder about which migration task applies and any relevant lesson (e.g., 'This is an auth file — remember to wire ALL call sites atomically'). Do NOT block the edit — just provide context if relevant. Skip if the file is not in any migration plan."
+          }
+        ]
+      }
+    ]
+  }
+}

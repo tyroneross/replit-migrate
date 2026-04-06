@@ -1,0 +1,13 @@
+{
+  "name": "replit-migrate",
+  "version": "0.1.0",
+  "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) with encoded lessons from real migrations",
+  "author": { "name": "Tyrone Ross" },
+  "license": "MIT",
+  "keywords": ["replit", "migration", "ios", "vercel", "native"],
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./.mcp.json",
+  "skills": "./skills",
+  "agents": "./agents",
+  "commands": "./commands"
+}

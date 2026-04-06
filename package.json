@@ -1,0 +1,48 @@
+{
+  "name": "@tyroneross/replit-migrate",
+  "version": "0.1.0",
+  "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) — encodes lessons from real migrations",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "replit-migrate": "./dist/cli/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "hooks",
+    "agents",
+    "commands",
+    ".claude-plugin",
+    ".mcp.json",
+    "CLAUDE.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && npm run build:fixshebang",
+    "build:fixshebang": "node -e \"const fs=require('fs');const f='dist/cli/index.js';let c=fs.readFileSync(f,'utf8');if(!c.startsWith('#!')){c='#!/usr/bin/env node\\n'+c;fs.writeFileSync(f,c);}\"",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "mcp": "node dist/mcp/server.js"
+  },
+  "keywords": ["claude-code", "replit", "migration", "ios", "vercel"],
+  "author": "Tyrone Ross",
+  "license": "FSL-1.1-MIT",
+  "engines": { "node": ">=20.0.0" },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "glob": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.3.0"
+  }
+}
