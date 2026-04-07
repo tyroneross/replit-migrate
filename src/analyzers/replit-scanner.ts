@@ -228,38 +228,62 @@ export async function scanReplitProject(
   });
   const allSrcAbsolute = allSrcFiles.map((f) => abs(f));
 
-  const authPatterns: Array<[RegExp, ScanReport["auth"]["method"]]> = [
-    [/REPLIT_IDENTITY|replit_auth|@replit\/|REPL_OWNER/, "replit-oidc"],
-    [/magic\.?[Ll]ink|magicLink|magic_link/, "magic-link"],
-    [/jsonwebtoken|jose|jwt\.verify|jwt\.sign/, "jwt"],
-    [/express-session|req\.session/, "session"],
-    [/passport/, "session"], // passport usually means session-based
+  // Auth pattern definitions with category
+  const authPatterns: Array<{ pattern: RegExp; method: ScanReport["auth"]["method"]; label: string }> = [
+    { pattern: /REPLIT_IDENTITY|replit_auth|@replit\/identity|REPL_OWNER/, method: "replit-oidc", label: "replit-oidc" },
+    { pattern: /magic\.?[Ll]ink|magicLink|magic_link/, method: "magic-link", label: "magic-link" },
+    { pattern: /jsonwebtoken|jose|jwt\.verify|jwt\.sign/, method: "jwt", label: "jwt" },
+    { pattern: /express-session|req\.session/, method: "session", label: "session" },
+    { pattern: /passport/, method: "session", label: "passport" },
   ];
 
   const authFileSet = new Set<string>();
-  let detectedAuthMethod: ScanReport["auth"]["method"] = "none";
   let replitSpecificAuth = false;
   const authDetails: string[] = [];
 
-  for (const [pattern, method] of authPatterns) {
+  // Weight hits by file location — route-level auth > UI auth > ambient references > build tooling
+  const methodScores = new Map<ScanReport["auth"]["method"], number>();
+
+  for (const { pattern, method, label } of authPatterns) {
     const hits = await grepFiles(pattern, allSrcAbsolute);
     if (hits.length > 0) {
+      let weightedScore = 0;
       for (const h of hits) {
-        authFileSet.add(path.relative(projectPath, h.file));
+        const rel = path.relative(projectPath, h.file);
+        authFileSet.add(rel);
+
+        // Weight by file location
+        if (/\.(config|build)\.|script\/|replit\./.test(rel)) {
+          // Build tooling / config — don't count for method detection
+          weightedScore += 0;
+        } else if (/server\/(routes|auth)|api\//.test(rel)) {
+          weightedScore += 3; // Route-level auth
+        } else if (/pages\/auth|lib\/auth|hooks\/.*auth/i.test(rel)) {
+          weightedScore += 2; // Auth UI
+        } else {
+          weightedScore += 1; // Ambient reference
+        }
       }
-      if (detectedAuthMethod === "none") {
-        detectedAuthMethod = method;
-      }
+
+      methodScores.set(method, (methodScores.get(method) ?? 0) + weightedScore);
+
       if (method === "replit-oidc") {
         replitSpecificAuth = true;
-        authDetails.push(`replit-oidc pattern found in ${hits.length} location(s)`);
-      } else {
-        authDetails.push(`${method} pattern found in ${hits.length} location(s)`);
       }
+      authDetails.push(`${label} pattern found in ${hits.length} location(s), weight ${weightedScore}`);
     }
   }
 
-  // If passport was detected but no stronger method, set to session
+  // Pick method with highest weighted score
+  let detectedAuthMethod: ScanReport["auth"]["method"] = "none";
+  let maxScore = 0;
+  for (const [method, score] of methodScores) {
+    if (score > maxScore) {
+      maxScore = score;
+      detectedAuthMethod = method;
+    }
+  }
+
   if (detectedAuthMethod === "none" && authFileSet.size > 0) {
     detectedAuthMethod = "unknown";
   }
@@ -287,7 +311,7 @@ export async function scanReplitProject(
     }
   }
 
-  const schemaFiles: string[] = [];
+  let schemaFiles: string[] = [];
   if (hasDrizzleConfig) schemaFiles.push("drizzle.config.ts");
   if (hasPrismaSchema) schemaFiles.push("prisma/schema.prisma");
 
@@ -297,6 +321,39 @@ export async function scanReplitProject(
       ignore: ["node_modules/**", "dist/**", "build/**"],
     });
     schemaFiles.push(...drizzleSchemas);
+  }
+
+  // After detecting ORM type, find actual schema files (not just config)
+  if (orm === "drizzle") {
+    const schemaGlobs = await glob(
+      "{shared/schema,src/schema,server/schema,db/schema,src/db/schema,lib/schema}.{ts,js}",
+      { cwd: projectPath }
+    );
+    if (schemaGlobs.length > 0) {
+      schemaFiles.push(...schemaGlobs);
+    }
+    // Deduplicate
+    schemaFiles = [...new Set(schemaFiles)];
+  }
+
+  // Prisma: schema.prisma already captured above; also check non-standard locations
+  if (orm === "prisma") {
+    const prismaSchemas = await glob("**/schema.prisma", {
+      cwd: projectPath,
+      ignore: ["node_modules/**"],
+    });
+    schemaFiles.push(...prismaSchemas);
+    schemaFiles = [...new Set(schemaFiles)];
+  }
+
+  // Mongoose: find model definition files
+  if (orm === "mongoose") {
+    const mongooseModels = await glob(
+      "{models,server/models,src/models}/*.{ts,js}",
+      { cwd: projectPath }
+    );
+    schemaFiles.push(...mongooseModels);
+    schemaFiles = [...new Set(schemaFiles)];
   }
 
   // Check for DATABASE_URL in env files pointing to Replit

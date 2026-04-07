@@ -695,7 +695,7 @@ function buildTasks(
     depends_on: ["native-architecture-1"],
     category: "architecture",
     lesson_reference:
-      "Set deployment target before writing any UI — changing it later forces layout audits.",
+      "XcodeGen regenerates Info.plist — ALL properties (orientations, permissions, usage descriptions) must go in project.yml, not Info.plist directly. Manual plist edits will be silently dropped on next xcodegen generate.",
     done: false,
   });
 
@@ -840,7 +840,7 @@ function buildTasks(
     depends_on: ["native-platform-1"],
     category: "testing",
     lesson_reference:
-      "FloDoro's IBR lesson: scan from Build 1, not Build 36. Issues found late are more expensive to fix.",
+      "MANDATORY: Run IBR native scan before every TestFlight upload. SpeakSavvy Build 1 shipped without a scan despite this being encoded as lesson #5. The hooks now enforce this — do not override.",
     done: false,
   });
 
@@ -855,7 +855,7 @@ function buildTasks(
     depends_on: ["native-testing-1"],
     category: "deployment",
     lesson_reference:
-      "TestFlight upload reveals provisioning, entitlement, and privacy manifest issues that local builds hide.",
+      "Create app record in App Store Connect BEFORE archiving. altool and the ASC API (without Admin key) cannot create apps. Budget for this manual browser step. Also verify UISupportedInterfaceOrientations is in project.yml — TestFlight rejects builds without it.",
     done: false,
   });
 

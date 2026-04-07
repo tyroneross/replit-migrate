@@ -17,7 +17,16 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If .replit-migrate/ exists in the project and you're about to edit a file, check if this file appears in the migration plan's affected files. If so, add a brief reminder about which migration task applies and any relevant lesson (e.g., 'This is an auth file — remember to wire ALL call sites atomically'). Do NOT block the edit — just provide context if relevant. Skip if the file is not in any migration plan."
+            "prompt": "If .replit-migrate/ exists in the project and you're about to edit a file:\n1. Check if this file appears in the migration plan's affected files. If so, remind which migration task applies.\n2. If editing an Info.plist and project.yml exists — WARN: 'XcodeGen will overwrite Info.plist on regeneration. Put this property in project.yml instead.'\n3. If editing a .swift file and no IBR native scan has been run yet — remind: 'IBR native scan not yet run. Run after this screen is complete.'\nDo NOT block the edit — just provide context if relevant."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If the Bash command contains 'xcodebuild' and 'archive':\n1. Check if IBR native scan has been run (look for .ibr/ directory or recent scan results). If not, warn: 'No IBR native scan detected. Lesson: scan from build 1, not build 36.'\n2. Check if UISupportedInterfaceOrientations is in project.yml (not just Info.plist). If missing, warn about TestFlight rejection.\n3. Check if app icon exists in Assets.xcassets.\nDo NOT block — just warn if issues found.\n\nIf the command contains 'altool' and 'upload-app':\n1. Suggest running bookmark snapshot to preserve session context.\n2. Remind to check App Store Connect for processing status."
           }
         ]
       }

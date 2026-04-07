@@ -38,6 +38,15 @@ These are baked into the generators — they shape task ordering automatically:
 - **IBR scanning from build 1.** Don't wait until build 36.
 - **iOS only first.** Don't multiplatform until the core is stable.
 
+### From SpeakSavvy (First replit-migrate test, Build 1 in one session)
+- **Auth detection needs weighting.** File-level grep overreports. Route-level patterns (server/routes, server/auth) should outweigh build tooling references.
+- **Schema files ≠ config files.** drizzle.config.ts is not the schema — shared/schema.ts is. Always verify model count against the actual schema.
+- **XcodeGen regenerates Info.plist.** Any manual edits to Info.plist (orientations, permissions) will be lost. Put everything in project.yml.
+- **App Store Connect app creation is manual.** The API needs Admin role for CREATE. Budget for this browser step.
+- **IBR scan was skipped.** Despite being lesson #5, we shipped without scanning. Hooks now enforce this.
+- **Bookmark snapshot at milestones.** Long sessions need checkpoints. Prompt for snapshot after TestFlight upload.
+- **Local-first eliminates server iteration.** SpeakSavvy shipped in one session because there was no server to debug. Default to local-first.
+
 ## Storage
 
 ```
