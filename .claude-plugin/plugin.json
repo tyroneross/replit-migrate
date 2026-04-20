@@ -13,6 +13,5 @@
     "vercel",
     "native"
   ],
-  "hooks": "./hooks/hooks.json",
   "mcpServers": "./.mcp.json"
 }
