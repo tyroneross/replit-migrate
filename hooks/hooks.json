@@ -26,7 +26,13 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If the Bash command contains 'xcodebuild' and 'archive':\n1. Check if IBR native scan has been run (look for .ibr/ directory or recent scan results). If not, warn: 'No IBR native scan detected. Lesson: scan from build 1, not build 36.'\n2. Check if UISupportedInterfaceOrientations is in project.yml (not just Info.plist). If missing, warn about TestFlight rejection.\n3. Check if app icon exists in Assets.xcassets.\nDo NOT block — just warn if issues found.\n\nIf the command contains 'altool' and 'upload-app':\n1. Suggest running bookmark snapshot to preserve session context.\n2. Remind to check App Store Connect for processing status."
+            "if": "Bash(xcodebuild*)",
+            "prompt": "The Bash command contains 'xcodebuild'. If it also contains 'archive':\n1. Check if IBR native scan has been run (look for .ibr/ directory or recent scan results). If not, warn: 'No IBR native scan detected. Lesson: scan from build 1, not build 36.'\n2. Check if UISupportedInterfaceOrientations is in project.yml (not just Info.plist). If missing, warn about TestFlight rejection.\n3. Check if app icon exists in Assets.xcassets.\nDo NOT block — just warn if issues found.\nIf not an 'archive' command, do nothing (respond with empty string)."
+          },
+          {
+            "type": "prompt",
+            "if": "Bash(xcrun altool*)",
+            "prompt": "The Bash command contains 'altool'. If it also contains 'upload-app':\n1. Suggest running bookmark snapshot to preserve session context.\n2. Remind to check App Store Connect for processing status.\nIf not an 'upload-app' command, do nothing (respond with empty string)."
           }
         ]
       }
