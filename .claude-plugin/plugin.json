@@ -6,8 +6,5 @@
   "license": "MIT",
   "keywords": ["replit", "migration", "ios", "vercel", "native"],
   "hooks": "./hooks/hooks.json",
-  "mcpServers": "./.mcp.json",
-  "skills": "./skills",
-  "agents": "./agents",
-  "commands": "./commands"
+  "mcpServers": "./.mcp.json"
 }
