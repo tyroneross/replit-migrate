@@ -1,10 +1,6 @@
 ---
 name: migrate-web
-description: >-
-  This skill should be used when the user asks to "migrate to web app",
-  "deploy to Vercel", "move to Cloudflare", "convert from Replit to web",
-  "get off Replit", "deploy as standalone", "make this a real web app",
-  "self-host this app", or "deploy to production".
+description: Use when the user asks to "migrate to web", "deploy to Vercel", "move to Cloudflare", "get off Replit", or convert a Replit app to standalone/self-hosted production.
 version: 0.1.0
 user-invocable: true
 argument-hint: <target>

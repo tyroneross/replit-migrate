@@ -1,10 +1,6 @@
 ---
 name: migrate-ios
-description: >-
-  This skill should be used when the user asks to "make this an iOS app",
-  "convert to native", "port to Swift", "build an iPhone app from this",
-  "SwiftUI version", "convert web app to mobile", "native iOS version",
-  "make this a mobile app", or "iOS app from Replit".
+description: Use when the user asks to "make this an iOS app", "convert to native", "port to Swift", "SwiftUI version", or migrate a Replit app to native iOS/macOS.
 version: 0.2.0
 user-invocable: true
 argument-hint: <project-path>

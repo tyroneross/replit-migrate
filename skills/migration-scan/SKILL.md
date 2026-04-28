@@ -1,11 +1,6 @@
 ---
 name: migration-scan
-description: >-
-  This skill should be used when the user asks to "scan this Replit app",
-  "analyze for migration", "what needs to change to move off Replit",
-  "what's Replit-specific in this project", "migration readiness",
-  "can I deploy this elsewhere", "check Replit dependencies",
-  or when a .replit file is detected in the project directory.
+description: Use to "scan this Replit app", "analyze for migration", "check Replit dependencies", or assess migration readiness. Auto-triggers when a .replit file is present.
 version: 0.1.0
 user-invocable: true
 argument-hint: <project-path>
