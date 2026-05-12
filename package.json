@@ -35,7 +35,7 @@
   },
   "keywords": ["claude-code", "replit", "migration", "ios", "vercel"],
   "author": "Tyrone Ross",
-  "license": "FSL-1.1-MIT",
+  "license": "Apache-2.0",
   "engines": { "node": ">=20.0.0" },
   "dependencies": {
     "commander": "^14.0.0",
