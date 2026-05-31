@@ -1,6 +1,6 @@
 {
   "name": "@tyroneross/replit-migrate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) — encodes lessons from real migrations",
   "type": "module",
   "main": "dist/index.js",
@@ -33,10 +33,18 @@
     "prepublishOnly": "npm run clean && npm run build",
     "mcp": "node dist/mcp/server.js"
   },
-  "keywords": ["claude-code", "replit", "migration", "ios", "vercel"],
+  "keywords": [
+    "claude-code",
+    "replit",
+    "migration",
+    "ios",
+    "vercel"
+  ],
   "author": "Tyrone Ross",
   "license": "Apache-2.0",
-  "engines": { "node": ">=20.0.0" },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "commander": "^14.0.0",
     "glob": "^13.0.0"
