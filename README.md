@@ -66,6 +66,14 @@ Plans are shaped by real migration experience:
 | Platform constraints before UI | FloDoro watchOS redesign | Constraint checklist before any views |
 | IBR from build 1 | FloDoro (caught issues at build 36) | Testing included from first task |
 
+## Plugin Package Surfaces
+
+This package ships host manifests alongside the CLI/runtime package. The package root is the repository root (`.`).
+
+Primary packaged surfaces:
+- skills from `./skills` when present
+- MCP config from `./.mcp.json` when present
+
 ## License
 
-MIT
+Apache-2.0

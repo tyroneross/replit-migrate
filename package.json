@@ -21,9 +21,11 @@
     "agents",
     "commands",
     ".claude-plugin",
+    ".codex-plugin",
     ".mcp.json",
     "CLAUDE.md",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc && npm run build:fixshebang",
@@ -34,16 +36,27 @@
     "mcp": "node dist/mcp/server.js"
   },
   "keywords": [
-    "claude-code",
     "replit",
     "migration",
     "ios",
     "vercel"
   ],
-  "author": "Tyrone Ross",
+  "author": "Tyrone Ross, Jr <46267523+tyroneross@users.noreply.github.com>",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tyroneross/replit-migrate.git"
+  },
+  "homepage": "https://github.com/tyroneross/replit-migrate#readme",
+  "bugs": {
+    "url": "https://github.com/tyroneross/replit-migrate/issues"
+  },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "dependencies": {
     "commander": "^14.0.0",

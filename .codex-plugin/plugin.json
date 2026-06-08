@@ -1,0 +1,30 @@
+{
+  "name": "replit-migrate",
+  "version": "0.1.1",
+  "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) with encoded lessons from real migrations",
+  "author": {
+    "name": "Tyrone Ross"
+  },
+  "repository": "https://github.com/tyroneross/replit-migrate",
+  "license": "Apache-2.0",
+  "keywords": [
+    "replit",
+    "migration",
+    "ios",
+    "vercel",
+    "native"
+  ],
+  "skills": "./skills",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Replit Migrate",
+    "shortDescription": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) with encoded lessons from real migrations",
+    "longDescription": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) with encoded lessons from real migrations",
+    "developerName": "Ross Labs",
+    "category": "Coding",
+    "capabilities": [
+      "Read",
+      "Write"
+    ]
+  }
+}
