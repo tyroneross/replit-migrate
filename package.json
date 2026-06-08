@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "replit-migrate": "./dist/cli/index.js"
+    "replit-migrate": "dist/cli/index.js"
   },
   "exports": {
     ".": {
