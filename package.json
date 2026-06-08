@@ -1,7 +1,7 @@
 {
   "name": "@tyroneross/replit-migrate",
   "version": "0.1.1",
-  "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) — encodes lessons from real migrations",
+  "description": "Replit app migration toolkit for web, Vercel, iOS, and macOS moves, with plugin guidance and MCP-backed migration checks.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,7 +39,10 @@
     "replit",
     "migration",
     "ios",
-    "vercel"
+    "macos",
+    "vercel",
+    "mcp",
+    "plugin"
   ],
   "author": "Tyrone Ross, Jr <46267523+tyroneross@users.noreply.github.com>",
   "license": "Apache-2.0",

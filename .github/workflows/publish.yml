@@ -57,8 +57,29 @@ jobs:
 
       - name: Publish dry run
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'true'
-        run: npm publish --dry-run --access public
+        run: npm publish --dry-run --provenance --access public --registry https://registry.npmjs.org
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish to npm with trusted publishing
+      - name: Publish to npmjs with provenance
         if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')
-        run: npm publish --access public
+        run: npm publish --provenance --access public --registry https://registry.npmjs.org
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify npmjs provenance metadata
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true')
+        run: |
+          PKG=$(node -p "require('./package.json').name")
+          VER=$(node -p "require('./package.json').version")
+          for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
+            PREDICATE=$(npm view "$PKG@$VER" dist.attestations.provenance.predicateType --json --registry https://registry.npmjs.org 2>/dev/null | tr -d '"')
+            if [ "$PREDICATE" = "https://slsa.dev/provenance/v1" ]; then
+              echo "Verified provenance predicate: $PREDICATE"
+              exit 0
+            fi
+            echo "Waiting for provenance metadata (attempt $attempt): ${PREDICATE:-missing}"
+            sleep 10
+          done
+          echo "::error::Provenance predicate missing or unexpected for $PKG@$VER"
+          exit 1
