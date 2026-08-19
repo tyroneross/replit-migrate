@@ -2,7 +2,8 @@
   "name": "replit-migrate",
   "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS)",
   "author": {
-    "name": "Tyrone Ross"
+    "name": "Tyrone Ross",
+    "url": "https://github.com/tyroneross"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -12,5 +13,7 @@
     "vercel",
     "native"
   ],
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./.mcp.json",
+  "repository": "https://github.com/tyroneross/replit-migrate",
+  "homepage": "https://github.com/tyroneross/replit-migrate"
 }
