@@ -17,15 +17,18 @@ claude plugin add @tyroneross/replit-migrate
 
 ### As Claude Code Plugin
 
+`/replit-migrate` is the single entry point — describe what you want and it routes to the
+right action:
+
 ```
 # Scan a Replit project
-/replit-migrate:scan
+/replit-migrate scan this project
 
 # Generate a web migration plan
-/replit-migrate:migrate web
+/replit-migrate migrate to web
 
-# Generate a native iOS migration plan  
-/replit-migrate:migrate native
+# Generate a native iOS migration plan
+/replit-migrate migrate to native ios
 ```
 
 ### As CLI

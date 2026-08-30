@@ -2,7 +2,7 @@
 name: migrate-ios
 description: Use when the user asks to "make this an iOS app", "convert to native", "port to Swift", "SwiftUI version", or migrate a Replit app to native iOS/macOS.
 version: 0.2.0
-user-invocable: true
+user-invocable: false
 argument-hint: <project-path>
 ---
 

@@ -19,8 +19,8 @@ Analyzes Replit projects and generates migration plans for web (Vercel/Cloudflar
 
 | Command | Purpose |
 |---------|---------|
-| `/replit-migrate:scan` | Scan project for migration readiness |
-| `/replit-migrate:migrate <target>` | Generate and execute migration plan |
+| `/replit-migrate` | Router — dispatches to scan or migrate based on intent |
+| `/replit-migrate:feedback` | Report a bug or send feedback |
 
 ## Encoded Lessons
 

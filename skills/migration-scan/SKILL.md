@@ -2,7 +2,7 @@
 name: migration-scan
 description: Use to "scan this Replit app", "analyze for migration", "check Replit dependencies", or assess migration readiness. Auto-triggers when a .replit file is present.
 version: 0.1.0
-user-invocable: true
+user-invocable: false
 argument-hint: <project-path>
 ---
 

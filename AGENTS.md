@@ -54,4 +54,4 @@ Call in this order:
 | `migrate-web` | "migrate to web", "deploy to Vercel", "move off Replit" |
 | `migrate-ios` | "migrate to iOS", "native app", "build for iPhone" |
 
-Skills provide workflow guidance and decision trees; the underlying work is done by calling the MCP tools above.
+Skills provide workflow guidance and decision trees; the underlying work is done by calling the MCP tools above. All 3 are `user-invocable: false` — Claude auto-loads them from their trigger description; the user reaches them through `/replit-migrate`, not a direct skill call.

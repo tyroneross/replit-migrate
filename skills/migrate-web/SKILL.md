@@ -2,7 +2,7 @@
 name: migrate-web
 description: Use when the user asks to "migrate to web", "deploy to Vercel", "move to Cloudflare", "get off Replit", or convert a Replit app to standalone/self-hosted production.
 version: 0.1.0
-user-invocable: true
+user-invocable: false
 argument-hint: <target>
 ---
 
