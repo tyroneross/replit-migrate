@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "node",
   "include-v-in-tag": true,
-  "last-release-sha": "6acbea64464bf91dad71f583c195e48cbca6cf86",
+  "last-release-sha": "ac16d683ebc825a00b5e034d6a3beceb72ff7d27",
   "changelog-sections": [
     {
       "type": "feat",
