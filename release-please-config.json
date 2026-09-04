@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "node",
   "include-v-in-tag": true,
+  "last-release-sha": "4e58ee9abd5891ae0ac3239bcae73982e1690df8",
   "changelog-sections": [
     {
       "type": "feat",
@@ -59,7 +60,6 @@
     ".": {
       "package-name": "@tyroneross/replit-migrate",
       "changelog-path": "CHANGELOG.md",
-      "last-release-sha": "4e58ee9abd5891ae0ac3239bcae73982e1690df8",
       "extra-files": [
         {
           "type": "json",
