@@ -1,6 +1,6 @@
 {
   "name": "replit-migrate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Migrate Replit apps to web (Vercel) or native (iOS/macOS) with encoded lessons from real migrations",
   "author": {
     "name": "Tyrone Ross",
