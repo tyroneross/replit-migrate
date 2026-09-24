@@ -4,3 +4,6 @@ dist/
 .DS_Store
 .bookmark/
 .archive/
+
+# build-loop runtime state (local only)
+.build-loop/
